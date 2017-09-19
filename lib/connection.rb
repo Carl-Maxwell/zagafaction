@@ -7,7 +7,7 @@ class Connection
 
   def initialize(node, angle, edge = nil)
     self.node  = node
-    self.angle = angle
+    self.angle = angle    
     self.edge  = edge if edge
   end
 end
