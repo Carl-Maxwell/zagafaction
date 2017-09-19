@@ -3,7 +3,7 @@ class Map
   attr_accessor :max_connections, :polygon
 
   def initialize(polygon, max_connections)
-    self.polygon = polygon
+    self.polygon         = polygon
     self.max_connections = max_connections
   end
 

@@ -13,15 +13,16 @@ class MapNode
     self.position = start_position
 
     self.connections = []
-    connections << connection if connection
+    self.connections << connection if connection
 
     self.map = map
   end
 
   def potential_connections
     return [] if connections.length == max_connections
+
     (0..polygon).to_a
-      .map {|angle| angle*base_angle }
+      .map    {|angle| angle*base_angle }
       .reject {|angle| connections.map(&:angle).include? angle }
   end
 end

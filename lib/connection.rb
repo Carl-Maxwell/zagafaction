@@ -5,8 +5,9 @@ class Connection
   extend Forwardable
   def_delegators :edge, :forward_vector, :forward_rotator
 
-  def initialize(angle, edge = nil)
+  def initialize(node, angle, edge = nil)
+    self.node  = node
     self.angle = angle
-    self.edge = edge if edge
+    self.edge  = edge if edge
   end
 end
