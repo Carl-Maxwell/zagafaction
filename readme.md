@@ -1,6 +1,6 @@
 # Zagafaction
 
-![screenshot of maze generator and solver](http://i.imgur.com/S0qKukJ.png)
+![screenshot of zagafaction output](http://i.imgur.com/YG7e97f.png)
 
 Zagafaction is a procedural map generation utility intended to be used for generating mazes with pleasing and interesting qualities. It uses [Prim's Algorithm](http://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm) at its core, but where Prim's algorithm uses randomness to make decisions I've injected a set of design principles that I think will make for better mazes.
 

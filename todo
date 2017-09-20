@@ -1,5 +1,6 @@
 
 
+* change up the color scheme for something more pleasing
 * the angle frequencies show a clear trend towards the multiples of 90 degrees
   * maybe they have a lower chance of collisions?
   * I think there's just something wrong with how I eliminate potential connections
