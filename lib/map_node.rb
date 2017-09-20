@@ -6,11 +6,13 @@ require_relative "edge"
 require "forwardable"
 
 class MapNode
-  attr_accessor :connections, :position, :radius, :map
+  attr_accessor :connections, :position, :radius, :map, :uniqid
 
   extend Forwardable
   def_delegators :position, :x, :y, :distance
   def_delegators :map, :polygon, :base_angle
+
+  @@id_count = 0
 
   def initialize(map, position, radius, connection = nil)
     self.position = Vector.new(position)
@@ -18,6 +20,8 @@ class MapNode
 
     self.connections = []
     self.connections << connection if connection
+
+    self.uniqid = (@@id_count += 1)
 
     self.map = map
   end

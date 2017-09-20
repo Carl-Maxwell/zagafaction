@@ -26,7 +26,8 @@ if $PROGRAM_NAME == __FILE__
     end
   end
 
-  print angle_frequencies
+  min_freq = angle_frequencies.min
+  print angle_frequencies.map {|freq| (freq*1.0)/min_freq }
   puts
 
   # generate output
@@ -69,8 +70,18 @@ if $PROGRAM_NAME == __FILE__
 
           p2 = other.position * scale + offset
 
-          line(p1.x, p1.y, p2.x, p2.y)
+          line(p1.x, p1.y, p2.x, p2.y, stroke_width: 2)
         end
+
+        g.potential_connections_rejects(node).each do |angle|
+          node_size = g.node_size
+          p3 = node.position + angle.to_vector * node_size * 2.0
+          p3 = p3 * scale + offset
+
+          line(p1.x, p1.y, p3.x, p3.y, stroke: "red")
+        end
+
+        text(p1.x, p1.y, :fill => "blue") { raw node.uniqid }
       end
 
       # maze.render()

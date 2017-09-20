@@ -14,7 +14,9 @@ class Vector
   end
 
   def length
-      self.to_a.map {|x| x**2}.reduce(&:+).sqrt
+      self.to_a.map {|x| x**2}.reduce(&:+).sqrt.round(5)
+
+      # self.to_a.map(&:abs).reduce(&:+)
   end
 
   def normalize
@@ -31,7 +33,8 @@ class Vector
 
   def to_rotator
     n = normalize
-    Rotator.new(Math.atan2(n.y, n.x) * 180.0/Math::PI)
+    angle = Math.atan2(n.y, n.x) * 180.0/Math::PI
+    Rotator.new(angle.round(5))
   end
 
   def to_a
