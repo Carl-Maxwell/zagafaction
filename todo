@@ -1,11 +1,12 @@
 
 
-* get stuff working
-* improve command line interface
-* remove polygon, except in generator
-* fix rotator so that if the rotation goes over/under 0/360 it wraps, keep it positive
-* the name 'angle' is used for too many disparate things, split them up with words like rotation, orientation, etc.
+* could cache frontier each step and then just regenerate parts of it near the newly added node each step
 * for large node counts generation takes way too long. Probably the collision detection code.
   * is the pythagorean theorem the reason it's so expensive? Could probably approximate it more cheaply
   * can probably cache collisions too, once a node is created it is never deleted or moved.
+* remove polygon, except in generator
+* fix rotator so that if the rotation goes over/under 0/360 it wraps, keep it positive
+* the name 'angle' is used for too many disparate things, split them up with words like rotation, orientation, etc.
 * currently there's no collision detection for edges hitting each other
+  * this doesn't _seem_ to actually come up though
+* improve command line interface

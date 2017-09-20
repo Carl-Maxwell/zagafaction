@@ -34,18 +34,18 @@ class Map
     node
   end
 
-  @@memoization = {}
+  # @@memoization = {}
 
   def collides?(position, radius)
     s = (position/radius).to_a.map(&:round).to_s
-    return true if @@memoization.key? s
+    # return true if @@memoization.key? s
 
     # loop over all nodes and return true if any are too near
     collision = nodes.any? do |node|
       node.distance(position) < node.radius + radius
     end
 
-    @@memoization[s] = true if collision
+    # @@memoization[s] = true if collision
 
     collision
   end
