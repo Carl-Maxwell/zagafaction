@@ -1,5 +1,6 @@
 
 require_relative "map_node"
+require_relative "libraries/rotator"
 
 class Map
   attr_accessor :polygon, :nodes
@@ -10,7 +11,7 @@ class Map
   end
 
   def base_angle
-    360.0/polygon
+    Rotator.new(360.0/polygon)
   end
 
   def new_node(position, radius)
@@ -19,7 +20,7 @@ class Map
 
   def collides?(position, radius)
     # loop over all nodes and return true if any are too near
-    nodes.any do |node|
+    nodes.any? do |node|
       node.distance(position) < node.radius + radius
     end
   end

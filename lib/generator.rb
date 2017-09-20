@@ -29,7 +29,7 @@ class Generator
     return [] if node.connections.length >= max_connections
 
     potentials.reject do |angle|
-      p = node.position + node_size + angle.to_vector*node_size
+      p = node.position + node_size + angle.to_vector * node_size
 
       map.collides? p, node_size
     end

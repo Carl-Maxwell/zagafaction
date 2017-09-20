@@ -1,5 +1,6 @@
 
 require_relative "numeric_monkeypatch"
+require_relative "rotator"
 
 class Vector
   attr_accessor :store

@@ -10,7 +10,7 @@ class MapNode
   def_delegators :map, :polygon, :base_angle
 
   def initialize(map, position, radius, connection = nil)
-    self.position = position
+    self.position = Vector.new(position)
     self.radius   = radius
 
     self.connections = []
