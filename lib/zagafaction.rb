@@ -1,3 +1,4 @@
+require_relative "libraries/numeric_monkeypatch"
 require_relative "map"
 
 require "rasem"
