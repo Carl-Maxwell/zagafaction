@@ -20,20 +20,34 @@ class Generator
     map.fill([0,0], node_size)
 
     (0..200).each do
+      next unless frontier.length > 0
       old_node, angle = frontier.sample
 
+      byebug unless old_node
+
       node = map.new_node(old_node, angle, node_size)
+
+      refresh_frontier([old_node, node])
     end
 
     nodes
   end
 
   def frontier
+    @@frontier ||= generate_frontier
+  end
+
+  def generate_frontier(list = nil)
     f = []
-    nodes.each do |node|
+    (list || nodes).each do |node|
       f += potential_connections(node).map {|angle| [node, angle] }
     end
     f
+  end
+
+  def refresh_frontier(list)
+    @@frontier.reject! {|node, angle| list.include? node}
+    @@frontier += generate_frontier(list)
   end
 
   def potential_connections(node)

@@ -1,6 +1,6 @@
 
 
-* could cache frontier each step and then just regenerate parts of it near the newly added node each step
+* the frontier memoization is really lazy, could miss updating nodes that need updating
 * for large node counts generation takes way too long. Probably the collision detection code.
   * is the pythagorean theorem the reason it's so expensive? Could probably approximate it more cheaply
   * can probably cache collisions too, once a node is created it is never deleted or moved.
