@@ -1,3 +1,6 @@
+
+require_relative "numeric_monkeypatch"
+
 class Vector
   attr_accessor :store
 
@@ -6,9 +9,11 @@ class Vector
   end
 
   def distance(other)
-    (other - self).to_a.map {|x| x**2}.reduce(&:+)
-    # (other - self).to_a.map(&:abs).reduce(&:+)
-    # TODO this is calculating difference on an orthogonal map, need to switch to pythagorean
+    (self - other).length
+  end
+
+  def length
+      self.to_a.map {|x| x**2}.reduce(&:+).sqrt
   end
 
   def adjacent()
