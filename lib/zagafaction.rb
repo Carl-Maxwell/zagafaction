@@ -18,10 +18,21 @@ if $PROGRAM_NAME == __FILE__
     # maze = filename
   # end
 
+  # count angle frequencies
+  angle_frequencies = (0...16).to_a.map { 0 }
+  nodes.each do |node|
+    node.connections.each do |connection|
+      angle_frequencies[(connection.angle/22.5).angle.round] += 1
+    end
+  end
+
+  print angle_frequencies
+  puts
+
+  # generate output
+
   File.open("test.svg", "w") do |f|
     Rasem::SVGImage.new({width: 1600, height: 1600}, f) do
-
-      # TODO find an offset that keeps everything on the render
 
       scale = 1.0 # 10.0
 
@@ -51,7 +62,7 @@ if $PROGRAM_NAME == __FILE__
       nodes.each do |node|
         p1 = node.position * scale + offset
 
-        # circle(p1.x, p1.y, 20/scale)
+        circle(p1.x, p1.y, 2)
 
         node.connections.each do |connection|
           other = connection.other

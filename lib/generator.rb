@@ -19,11 +19,9 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..200).each do
+    (0..800).each do
       next unless frontier.length > 0
       old_node, angle = frontier.sample
-
-      byebug unless old_node
 
       node = map.new_node(old_node, angle, node_size)
 
@@ -46,8 +44,14 @@ class Generator
   end
 
   def refresh_frontier(list)
-    @@frontier.reject! {|node, angle| list.include? node}
-    @@frontier += generate_frontier(list)
+    stale_nodes = @@frontier.select do |f_node, angle|
+      list.any? {|node| f_node.distance(node.position) < node_size*2}
+    end
+
+    @@frontier -= stale_nodes
+    stale_nodes.map!(&:first)
+
+    @@frontier += generate_frontier(list + stale_nodes)
   end
 
   def potential_connections(node)
