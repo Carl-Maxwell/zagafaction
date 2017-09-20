@@ -26,6 +26,8 @@ class MapNode
     return if connections.map(&:angle).include? angle
     c = Connection.new(self, angle)
 
+    connections << c
+
     edge.add_connection(self)
   end
 
