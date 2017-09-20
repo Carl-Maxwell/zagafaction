@@ -24,11 +24,11 @@ class MapNode
 
   def new_connection(angle, edge)
     return if connections.map(&:angle).include? angle
-    c = Connection.new(self, angle)
+    co = Connection.new(self, angle, edge)
 
-    connections << c
+    connections << co
 
-    edge.add_connection(self)
+    edge.add_connection(co)
   end
 
   def potential_connections

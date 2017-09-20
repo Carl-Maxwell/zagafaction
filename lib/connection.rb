@@ -12,4 +12,8 @@ class Connection
     self.angle = angle
     self.edge  = edge if edge
   end
+
+  def other
+    edge.connections.reject {|connection| connection.node = node }.first.node
+  end
 end

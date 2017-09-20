@@ -1,25 +1,38 @@
+
 require_relative "libraries/numeric_monkeypatch"
-require_relative "map"
+require_relative "generator"
 
 require "rasem"
 
 if $PROGRAM_NAME == __FILE__
-  maze = ARGV.shift
+  # maze = ARGV.shift
 
-  unless maze
-    m = Map.new(26,10)
-    m.generate()
+  # unless maze
+    g = Generator.new
+    nodes = g.run()
 
     filename = "mazes/maze" + Dir.glob("mazes/maze*").length.to_s.rjust(2, "0")
 
-    File.write(filename, m.display)
+    # File.write(filename, g.display)
 
-    maze = filename
-  end
+    # maze = filename
+  # end
 
   File.open("test.svg", "w") do |f|
     Rasem::SVGImage.new({width: 100, height: 100}, f) do
-      # line(0, 0, 100, 100)
+
+      # TODO find an offset that keeps everything on the render
+
+      scale = 10.0
+
+      nodes.each do |node|
+        circle(node.x*scale, node.y*scale, scale/2)
+
+        node.connections.each do |connection|
+          other = connection.other
+          line(node.x*scale, node.y*scale, other.x*scale, other.y*scale)
+        end
+      end
 
       # maze.render()
 

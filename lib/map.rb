@@ -14,10 +14,22 @@ class Map
     Rotator.new(360.0/polygon)
   end
 
-  def new_node(position, radius)
+  def fill(position, radius)
     node = MapNode.new(self, position, radius)
-
     nodes << node
+
+    node
+  end
+
+  def new_node(old_node, angle, radius)
+    p = old_node.position + old_node.radius + angle.to_vector * radius
+
+    node = MapNode.new(self, p, radius)
+    nodes << node
+
+    edge = Edge.new()
+    node.new_connection(angle.flip, edge)
+    old_node.new_connection(angle, edge)
 
     node
   end
