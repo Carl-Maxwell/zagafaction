@@ -4,3 +4,4 @@
 * improve command line interface
 * remove polygon, except in generator
 * fix rotator so that if the rotation goes over/under 0/360 it wraps, keep it positive
+* the name 'angle' is used for too many disparate things, split them up with words like rotation, orientation, etc.
