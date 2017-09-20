@@ -12,7 +12,7 @@ class Rotator
   end
 
   def to_vector
-    Math.cos(radians)
+    Vector.new([radians.cos, radians.sin])
   end
 
   def radians
