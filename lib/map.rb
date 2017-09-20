@@ -1,4 +1,6 @@
 
+require_relative "map_node"
+
 class Map
   attr_accessor :polygon, :nodes
 
@@ -11,8 +13,8 @@ class Map
     360.0/polygon
   end
 
-  def new_node
-
+  def new_node(position, radius)
+    nodes << MapNode.new(self, position, radius)
   end
 
   def collides?(position, radius)
