@@ -9,7 +9,7 @@ class Rotator
   # def_delegators :angle, :==, :-, :*, :/
 
   def initialize(angle)
-    self.angle = angle.responds_to?(:angle) ? angle.angle : angle
+    self.angle = angle.is_a?(Rotator) ? angle.angle : angle
   end
 
   def to_vector

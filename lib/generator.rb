@@ -1,5 +1,6 @@
 
 require_relative "map"
+require "byebug"
 
 class Generator
   attr_accessor :map, :node_size, :max_connections, :polygon
@@ -16,11 +17,19 @@ class Generator
   end
 
   def run
+    map.new_node([0,0], node_size)
+
+    # n = frontier.sample
+    # map.new_node(n)
+
+    frontier
   end
 
   def frontier
     f = []
-    nodes.each {|node| f += potential_connections(node) }
+    nodes.each do |node|
+      f += potential_connections(node).map {|angle| [node, angle] }
+    end
     f
   end
 
