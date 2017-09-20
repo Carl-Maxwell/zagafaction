@@ -5,9 +5,6 @@ require_relative "vector"
 class Rotator
   attr_accessor :angle
 
-  # extend Forwardable
-  # def_delegators :angle, :==, :-, :*, :/
-
   def initialize(angle)
     self.angle = angle.is_a?(Rotator) ? angle.angle : angle
   end
