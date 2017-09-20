@@ -20,6 +20,12 @@ class Rotator
     angle * Math::PI / 180.0
   end
 
+  def flip
+    a = angle-180
+    a += 360 if angle < 0
+    Rotator.new(a )
+  end
+
   #
   #
   #

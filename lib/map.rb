@@ -15,7 +15,11 @@ class Map
   end
 
   def new_node(position, radius)
-    nodes << MapNode.new(self, position, radius)
+    node = MapNode.new(self, position, radius)
+
+    nodes << node
+
+    node
   end
 
   def collides?(position, radius)

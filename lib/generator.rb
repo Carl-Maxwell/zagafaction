@@ -19,8 +19,14 @@ class Generator
   def run
     map.new_node([0,0], node_size)
 
-    n = frontier.sample
-    map.new_node(*n)
+    f = frontier.sample
+    node = map.new_node(*f)
+
+    old_node, angle = f
+
+    edge = Edge.new()
+    node.new_connection(angle.flip, edge)
+    old_node.new_connection(angle, edge)
 
     nodes
   end

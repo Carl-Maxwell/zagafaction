@@ -3,3 +3,4 @@
 * get stuff working
 * improve command line interface
 * remove polygon, except in generator
+* fix rotator so that if the rotation goes over/under 0/360 it wraps, keep it positive

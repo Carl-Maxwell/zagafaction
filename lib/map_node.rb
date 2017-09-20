@@ -1,5 +1,8 @@
 
 require_relative "map"
+require_relative "connection"
+require_relative "edge"
+
 require "forwardable"
 
 class MapNode
@@ -19,11 +22,11 @@ class MapNode
     self.map = map
   end
 
-  def new_connection(angle)
+  def new_connection(angle, edge)
     return if connections.map(&:angle).include? angle
     c = Connection.new(self, angle)
 
-    # TODO create edge?
+    edge.add_connection(self)
   end
 
   def potential_connections
