@@ -23,7 +23,7 @@ class Vector
   #
 
   def to_rotator
-    # TODO convert to rotator
+    Rotator.new(Math.atan2(y, x) * 180.0/Math::PI)
   end
 
   def to_a
