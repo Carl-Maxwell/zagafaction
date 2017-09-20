@@ -16,18 +16,11 @@ class Vector
       self.to_a.map {|x| x**2}.reduce(&:+).sqrt
   end
 
-  def adjacent()
-    adj = []
+  # TODO def normalize
 
-    (-1..1).each do |x|
-      (-1..1).each do |y|
-        next unless [x,y].include? 0
-        adj << (self + [x, y]).to_a #[self[0] + x, self[1] + y]
-      end
-    end
-
-    adj
-  end
+  #
+  # casting
+  #
 
   def to_rotator
     # TODO convert to rotator

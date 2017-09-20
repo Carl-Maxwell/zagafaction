@@ -27,8 +27,6 @@ class MapNode
   end
 
   def potential_connections
-
-
     (0...polygon).to_a
       .map    {|angle| angle*base_angle }
       .reject {|angle| connections.map(&:angle).include? angle }

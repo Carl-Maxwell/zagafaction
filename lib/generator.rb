@@ -13,7 +13,7 @@ class Generator
   end
 
   def frontier
-
+    
   end
 
   def potential_connections(node)
