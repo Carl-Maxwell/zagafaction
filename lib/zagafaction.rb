@@ -19,7 +19,7 @@ if $PROGRAM_NAME == __FILE__
   # end
 
   File.open("test.svg", "w") do |f|
-    Rasem::SVGImage.new({width: 800, height: 800}, f) do
+    Rasem::SVGImage.new({width: 1600, height: 1600}, f) do
 
       # TODO find an offset that keeps everything on the render
 
@@ -41,17 +41,17 @@ if $PROGRAM_NAME == __FILE__
       bottom_right[0] = x_sorted.last.x
       bottom_right[1] = y_sorted.last.y
 
-      scale *= [400/(bottom_right - top_left).length, 1.0].max
+      scale *= [1400/(bottom_right - top_left).length, 1.0].max
 
       offset = Vector.new([0 - top_left.x, 0 - top_left.y])
 
       offset *= scale
-      offset += [200, 200]
+      offset += [100, 100]
 
       nodes.each do |node|
         p1 = node.position * scale + offset
 
-        circle(p1.x, p1.y, scale/2)
+        # circle(p1.x, p1.y, 20/scale)
 
         node.connections.each do |connection|
           other = connection.other

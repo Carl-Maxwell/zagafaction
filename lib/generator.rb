@@ -19,7 +19,7 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..50).each do
+    (0..200).each do
       old_node, angle = frontier.sample
 
       node = map.new_node(old_node, angle, node_size)

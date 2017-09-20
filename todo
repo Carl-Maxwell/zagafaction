@@ -8,3 +8,4 @@
 * for large node counts generation takes way too long. Probably the collision detection code.
   * is the pythagorean theorem the reason it's so expensive? Could probably approximate it more cheaply
   * can probably cache collisions too, once a node is created it is never deleted or moved.
+* currently there's no collision detection for edges hitting each other
