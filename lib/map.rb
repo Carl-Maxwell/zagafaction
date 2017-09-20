@@ -22,7 +22,7 @@ class Map
   end
 
   def new_node(old_node, angle, radius)
-    p = old_node.position + old_node.radius + angle.to_vector * radius
+    p = old_node.position + angle.to_vector * radius * 2
 
     node = MapNode.new(self, p, radius)
     nodes << node

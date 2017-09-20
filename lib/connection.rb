@@ -14,6 +14,6 @@ class Connection
   end
 
   def other
-    edge.connections.reject {|connection| connection.node = node }.first.node
+    edge.connections.reject {|connection| connection.node == node }.first.node
   end
 end

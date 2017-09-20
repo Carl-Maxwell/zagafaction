@@ -19,7 +19,7 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..1).each do
+    (0..10).each do
       old_node, angle = frontier.sample
 
       node = map.new_node(old_node, angle, node_size)
@@ -41,7 +41,7 @@ class Generator
     return [] if node.connections.length >= max_connections
 
     potentials.reject do |angle|
-      p = node.position + node_size + angle.to_vector * node_size
+      p = node.position + angle.to_vector * node_size * 2.0
 
       map.collides? p, node_size
     end
