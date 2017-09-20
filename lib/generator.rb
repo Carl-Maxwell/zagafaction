@@ -19,10 +19,10 @@ class Generator
   def run
     map.new_node([0,0], node_size)
 
-    # n = frontier.sample
-    # map.new_node(n)
+    n = frontier.sample
+    map.new_node(*n)
 
-    frontier
+    nodes
   end
 
   def frontier
