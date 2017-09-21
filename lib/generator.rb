@@ -61,8 +61,6 @@ class Generator
     potentials = node.potential_connections
     return [] if node.connections.length >= max_connections
 
-    puts "angle included" if node.uniqid == 1 && potentials.include?(45.0)
-
     potentials.select do |angle|
       p = node.position + angle.to_vector * edge_length
 
