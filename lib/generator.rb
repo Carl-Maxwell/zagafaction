@@ -10,7 +10,7 @@ class Generator
 
   def initialize()
     self.node_size       = 1.0
-    self.edge_length     = 0.0 + node_size * 2.0
+    self.edge_length     = 0.75 + node_size * 2.0
     self.polygon         = 16
     self.max_connections = 4
 
@@ -20,12 +20,14 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..4).each do
+    (0..50).each do
       f = frontier
       next unless f.length > 0
       old_node, angle = f.last#f.sample
 
-      node = map.new_node(old_node, angle, node_size)
+      p = old_node.position + angle.to_vector * edge_length
+
+      node = map.new_node(old_node, p, angle, node_size)
 
       # refresh_frontier([old_node, node])
     end
