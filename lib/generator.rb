@@ -3,13 +3,14 @@ require_relative "map"
 require "byebug"
 
 class Generator
-  attr_accessor :map, :node_size, :max_connections, :polygon
+  attr_accessor :map, :node_size, :edge_length, :max_connections, :polygon
 
   extend Forwardable
   def_delegators :map, :nodes
 
   def initialize()
     self.node_size       = 1.0
+    self.edge_length     = 0.0 + node_size * 2.0
     self.polygon         = 16
     self.max_connections = 4
 
@@ -19,10 +20,10 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..50).each do
+    (0..100).each do
       f = frontier
       next unless f.length > 0
-      old_node, angle = f.sample
+      old_node, angle = f.last#f.sample
 
       node = map.new_node(old_node, angle, node_size)
 
@@ -61,18 +62,18 @@ class Generator
     return [] if node.connections.length >= max_connections
 
     potentials.select do |angle|
-      p = node.position + angle.to_vector * (node_size * 2.0)
+      p = node.position + angle.to_vector * edge_length
 
       map.collides? p, node_size
     end
   end
 
   def potential_connections(node)
-    potentials = node.potential_connections
+    potentials = node.potential_connections.shuffle
     return [] if node.connections.length >= max_connections
 
     potentials.reject do |angle|
-      p = node.position + angle.to_vector * (node_size * 2.0)
+      p = node.position + angle.to_vector * edge_length
 
       map.collides? p, node_size
     end
