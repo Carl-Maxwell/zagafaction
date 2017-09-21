@@ -20,7 +20,7 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..100).each do
+    (0..4).each do
       f = frontier
       next unless f.length > 0
       old_node, angle = f.last#f.sample
@@ -60,6 +60,8 @@ class Generator
   def potential_connections_rejects(node)
     potentials = node.potential_connections
     return [] if node.connections.length >= max_connections
+
+    puts "angle included" if node.uniqid == 1 && potentials.include?(45.0)
 
     potentials.select do |angle|
       p = node.position + angle.to_vector * edge_length

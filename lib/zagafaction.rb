@@ -8,6 +8,7 @@ if $PROGRAM_NAME == __FILE__
   # maze = ARGV.shift
 
   # unless maze
+    Random::srand(174244244925392674317086725143365111051)
     g = Generator.new
     nodes = g.run()
 
@@ -33,6 +34,9 @@ if $PROGRAM_NAME == __FILE__
   # puts
 
   print position_frequencies.sort
+  puts
+
+  print Random::srand()
   puts
 
   # generate output
@@ -91,14 +95,13 @@ if $PROGRAM_NAME == __FILE__
           p3 = node.position + angle.to_vector * edge_length
           p3 = p3 * scale + offset
 
-          line(p1.x, p1.y, p3.x, p3.y, stroke: "#74B296")
+          color = node.uniqid == 1 && angle == 45.0 ? "red" : "#74B296"
+
+          line(p1.x, p1.y, p3.x, p3.y, stroke: color, opacity: "0.5")
         end
 
         text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
       end
-
-      # maze.render()
-
     end
   end
 end

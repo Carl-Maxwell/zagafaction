@@ -44,7 +44,7 @@ class Rotator
   end
 
   def ==(other)
-    return other.angle == angle if other.respond_to?(:angle)
+    return other.angle == angle if angle.is_a?(Rotator)
     angle == other
   end
 end
