@@ -9,7 +9,11 @@ if $PROGRAM_NAME == __FILE__
 
   # unless maze
     Random::srand(174244244925392674317086725143365111051)
-    g = Generator.new
+
+    polygon = 16
+    space = [20, 20]
+
+    g = Generator.new(polygon, space)
     nodes = g.run()
 
     filename = "mazes/maze" + Dir.glob("mazes/maze*").length.to_s.rjust(2, "0")
@@ -19,13 +23,16 @@ if $PROGRAM_NAME == __FILE__
     # maze = filename
   # end
 
+  puts "Node count: #{g.nodes.length}"
+
   # count angle frequencies &c
-  angle_frequencies = (0...16).to_a.map { 0 }
+  base_angle = 360.0/polygon
+  angle_frequencies = (0...polygon).to_a.map { 0 }
   position_frequencies = []
   nodes.each do |node|
     position_frequencies << node.position.to_a.map(&:abs).reduce(&:+).round(5)
     node.connections.each do |connection|
-      angle_frequencies[(connection.angle/22.5).angle.round] += 1
+      angle_frequencies[(connection.angle/base_angle).angle.round] += 1
     end
   end
 
@@ -80,29 +87,35 @@ if $PROGRAM_NAME == __FILE__
       nodes.each do |node|
         p1 = node.position * scale + offset
 
-        circle(p1.x, p1.y, 2, fill: "#9E6BB2")
+
         # circle(p1.x, p1.y, 1.0*node.radius*scale, stroke: "red", stroke_opacity: "0.25", fill_opacity: "0.0")
 
         node.connections.each do |connection|
           other = connection.other
 
           p2 = other.position * scale + offset
+          radius = 2*scale*((node.radius + other.radius)/2)
 
-          line(p1.x, p1.y, p2.x, p2.y, stroke_width: 2, stroke: "#E9B3FF")
+          # line(p1.x, p1.y, p2.x, p2.y, stroke_width: radius, stroke: "white")
+          # line(p1.x, p1.y, p2.x, p2.y, stroke_width: radius-4, stroke: "#E9B3FF")
         end
+
+        circle(p1.x, p1.y, node.radius*scale, fill: "#9E6BB2")
 
         g.potential_connections_rejects(node).each do |angle|
           edge_length = g.edge_length
           p3 = node.position + angle.to_vector * edge_length
           p3 = p3 * scale + offset
 
-          line(p1.x, p1.y, p3.x, p3.y, stroke: "#74B296", opacity: "0.5")
+          # line(p1.x, p1.y, p3.x, p3.y, stroke: "#74B296", opacity: "0.5")
 
           # circle(p3.x, p3.y, 1.0*node.radius*scale, stroke: "pink", stroke_opacity: "1.0", fill_opacity: "0.0")
         end
 
-        text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
+        # text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
       end
+
+      circle(offset.x, offset.y, g.space_radius*scale, stroke: "red", stroke_opacity: "1.0", fill_opacity: "0.0")
     end
   end
 end

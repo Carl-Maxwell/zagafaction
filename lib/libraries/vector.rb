@@ -14,9 +14,7 @@ class Vector
   end
 
   def length
-      self.to_a.map {|x| x**2}.reduce(&:+).sqrt.round(5)
-
-      # self.to_a.map(&:abs).reduce(&:+)
+      self.to_a.map {|a| a**2}.reduce(&:+).sqrt.round(5)
   end
 
   def normalize
@@ -53,12 +51,14 @@ class Vector
     store[1]
   end
 
-  def [](x)
-    store[x]
+  def [](d)
+    return send(d) if [:x, :y].include?(d)
+    
+    store[d]
   end
 
-  def []=(x, value)
-    store[x] = value
+  def []=(d, value)
+    store[d] = value
   end
 
   def operation(op, value)
