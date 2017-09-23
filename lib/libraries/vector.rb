@@ -53,7 +53,7 @@ class Vector
 
   def [](d)
     return send(d) if [:x, :y].include?(d)
-    
+
     store[d]
   end
 

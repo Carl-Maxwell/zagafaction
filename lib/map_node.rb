@@ -9,7 +9,7 @@ class MapNode
   attr_accessor :connections, :position, :radius, :map, :uniqid
 
   extend Forwardable
-  def_delegators :position, :x, :y, :distance
+  def_delegators :position, :x, :y
   def_delegators :map, :polygon, :base_angle
 
   @@id_count = 0
@@ -39,5 +39,10 @@ class MapNode
     (0...polygon).to_a
       .map    {|angle| base_angle*angle }
       .reject {|angle| connections.map(&:angle).include? angle }
+  end
+
+  def distance(other)
+    other = if other.respond_to?(:position) then other.position else other end
+    position.distance(other)
   end
 end

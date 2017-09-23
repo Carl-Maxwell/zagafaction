@@ -12,30 +12,46 @@ class CollisionMap
     self.partition = partition_binary(nodes)
   end
 
+  def search(query)
+    results = search_recursive(query, partition)
+
+    # TODO find closest, exclude the query itself
+  end
+
+  def search_recursive(query, list)
+    return list if !(list.is_a?(CollisionList) && list.has_sublist?)
+
+    dimension = list.dimension
+
+    print "query: #{query.send(dimension)} < midpoint #{list.send(dimension)}\n"
+
+    if query.send(dimension) < list.send(dimension)
+      search_recursive(query, list[0])
+    else
+      search_recursive(query, list[1])
+    end
+  end
+
   def partition_binary(nodes, vertical = true)
-    return nodes if nodes.length <= 6
+    return CollisionList.new(nodes) if nodes.length <= 6
 
     midpoint = nodes.reduce(Vector.new([0, 0])) do |sum, node|
       sum + node.position
     end
     midpoint /= nodes.length
 
-    a, b = CollisionList.new([], midpoint), CollisionList.new([], midpoint)
-
-    # TODO there is actually a .partition function in Enumerable
-
-    #a, b = nodes.partition {|node| node.position[dimension] < midpoint[dimension] }
+    a, b = [], []
 
     dimension = if vertical then :x else :y end
 
     nodes.each do |node|
-      if node.position[dimension] < midpoint[dimension]
+      if node.send(dimension) < midpoint.send(dimension)
         a << node
       else
         b << node
       end
     end
 
-    [partition_binary(a), partition_binary(b)]
+    CollisionList.new([partition_binary(a), partition_binary(b)], midpoint, dimension)
   end
 end
