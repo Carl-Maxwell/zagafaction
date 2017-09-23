@@ -41,7 +41,26 @@ Random::srand(174244244925392674317086725143365111051)
   print node.position
   puts
 
+  puts "Performing old exponential cost algorithm"
+  t = Time.now
+
+  collision = nodes.any? do |other|
+    other.distance(node) < other.radius + node.radius
+  end
+
+  elapsed = (Time.now - t).to_f
+  puts "took #{elapsed} seconds"
+
+  puts "Performing BSP algorithm"
+  t = Time.now
+
   results = collision_map.search(node.position)
+
+  results.closest(node).position.to_a
+
+  elapsed = (Time.now - t).to_f
+  puts "took #{elapsed} seconds"
+
   print results.length
   puts
 
@@ -60,6 +79,7 @@ Random::srand(174244244925392674317086725143365111051)
   print "closest result: \n"
   print results.closest(node).position.to_a
   puts
+
 
   puts
   puts "---"

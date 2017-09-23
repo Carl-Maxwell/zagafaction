@@ -23,7 +23,7 @@ class CollisionMap
 
     dimension = list.dimension
 
-    print "query: #{query.send(dimension)} < midpoint #{list.send(dimension)}\n"
+    # print "query: #{query.send(dimension)} < midpoint #{list.send(dimension)}\n"
 
     if query.send(dimension) < list.send(dimension)
       search_recursive(query, list[0])
