@@ -38,6 +38,10 @@ class Map
       node.distance(position) < node.radius + radius
     end
 
+    # collision_map = CollisionMap.new(nodes)
+    # results = collision_map.search(node.position)
+    # results.closest(node).position.to_a
+
     collision
   end
 end

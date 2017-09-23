@@ -1,6 +1,6 @@
 require_relative "lib/generator"
 require_relative "lib/collision_map"
-
+require_relative "lib/libraries/debug"
 Random::srand(174244244925392674317086725143365111051)
 
 (1..1).each do
@@ -41,25 +41,36 @@ Random::srand(174244244925392674317086725143365111051)
   print node.position
   puts
 
-  puts "Performing old exponential cost algorithm"
-  t = Time.now
-
-  collision = nodes.any? do |other|
-    other.distance(node) < other.radius + node.radius
+  Debug.elapsed "old algorithm; one collision" do
+    collision = nodes.any? do |other|
+      other.distance(node) < other.radius + node.radius
+    end
   end
 
-  elapsed = (Time.now - t).to_f
-  puts "took #{elapsed} seconds"
+  Debug.elapsed "old algorithm; #{nodes.length} collisions" do
+    0.upto(nodes.length) do
+      collision = nodes.any? do |other|
+        other.distance(node) < other.radius + node.radius
+      end
+    end
+  end
 
-  puts "Performing BSP algorithm"
-  t = Time.now
+  Debug.elapsed "new algorithm; generating collision map & one collision" do
+    cmap = CollisionMap.new(nodes)
+    rs = collision_map.search(node.position)
+    rs.closest(node)
+  end
+
+  Debug.elapsed "new algorithm; generating collision map & #{nodes.length} collisions" do
+    cmap = CollisionMap.new(nodes)
+
+    0.upto(nodes.length) do
+      rs = collision_map.search(node.position)
+      rs.closest(node)
+    end
+  end
 
   results = collision_map.search(node.position)
-
-  results.closest(node).position.to_a
-
-  elapsed = (Time.now - t).to_f
-  puts "took #{elapsed} seconds"
 
   print results.length
   puts

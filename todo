@@ -1,5 +1,7 @@
 
 
+* there are a lot of edge cases for the bsp that I haven't accounted for
+  * like nodes overlapping the midpoint line
 * change up the color scheme for something more pleasing
 * the angle frequencies show a clear trend towards the multiples of 90 degrees
   * maybe they have a lower chance of collisions?

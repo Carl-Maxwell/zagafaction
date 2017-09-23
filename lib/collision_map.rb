@@ -15,7 +15,9 @@ class CollisionMap
   def search(query)
     results = search_recursive(query, partition)
 
-    # TODO find closest, exclude the query itself
+    results.reject! {|other| other.object_id == query.object_id }
+
+    CollisionList.new(results)
   end
 
   def search_recursive(query, list)
