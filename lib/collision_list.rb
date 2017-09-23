@@ -39,6 +39,51 @@ class CollisionList
   # Array-like methods
   #
 
+  def arrayify
+    s = store.to_a
+    s.map do |element|
+      if element.is_a?(CollisionList) then element.arrayify else element end
+    end
+  end
+
+  def flatify
+    output = []
+
+    store.to_a.map do |element|
+      if element.is_a?(CollisionList)
+        output += element.flatify
+      else
+        output << element
+      end
+    end
+
+    output
+  end
+
+  def get_midpoints_and_dimensions
+    return [] unless midpoint && dimension
+
+    output = [[midpoint, dimension]]
+
+    store.to_a.map do |element|
+      if element.is_a?(CollisionList)
+        output += element.get_midpoints_and_dimensions
+      end
+    end
+
+    output
+  end
+
+  def to_a
+    store.to_a
+  end
+
+  def to_s
+    store.map do |element|
+      if element.is_a?(CollisionList) then element.to_s else element.to_s end
+    end
+  end
+
   def each(&block)
     store.each(&block)
 

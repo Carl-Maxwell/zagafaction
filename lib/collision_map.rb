@@ -12,12 +12,18 @@ class CollisionMap
     self.partition = partition_binary(nodes)
   end
 
-  def search(query)
-    results = search_recursive(query, partition)
+  def search(query_point, query_radius)
 
-    results.reject! {|other| other.object_id == query.object_id }
+    # TODO going to have to do this for each sub-space too, cause a node might belong in multiple lists
 
-    CollisionList.new(results)
+    query = [query_point] + [
+      query_point + [query_radius, 0],
+      query_point - [query_radius, 0],
+      query_point + [0, query_radius],
+      query_point - [0, query_radius]
+    ]
+
+    results = search_recursive(query_point, partition)
   end
 
   def search_recursive(query, list)
@@ -54,6 +60,13 @@ class CollisionMap
       end
     end
 
-    CollisionList.new([partition_binary(a), partition_binary(b)], midpoint, dimension)
+    CollisionList.new(
+      [
+        partition_binary(a, !vertical),
+        partition_binary(b, !vertical)
+      ],
+      midpoint,
+      dimension
+    )
   end
 end

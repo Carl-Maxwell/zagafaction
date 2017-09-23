@@ -1,5 +1,6 @@
 
 require_relative "map_node"
+require_relative "collision_map"
 require_relative "libraries/rotator"
 
 class Map
@@ -29,18 +30,32 @@ class Map
     node.new_connection(angle.flip, edge)
     old_node.new_connection(angle, edge)
 
+    break_collision_cache
+
     node
   end
 
+  #
+  # Collision Code
+  #
+
+  def break_collision_cache
+    @collision_map = nil
+  end
+
+  def collision_map
+    @collision_map ||= CollisionMap.new(nodes)
+  end
+
   def collides?(position, radius)
-    # loop over all nodes and return true if any are too near
-    collision = nodes.any? do |node|
+    results = collision_map.search(position, radius)
+
+    # results.reject! {|other| other.position.object_id == position.object_id }
+
+    # loop over results and return true if any are too near
+    collision = results.any? do |node|
       node.distance(position) < node.radius + radius
     end
-
-    # collision_map = CollisionMap.new(nodes)
-    # results = collision_map.search(node.position)
-    # results.closest(node).position.to_a
 
     collision
   end

@@ -22,7 +22,7 @@ class Generator
   def run
     map.fill([0,0], node_size)
 
-    (0..400).each do
+    (0..100).each do
       f = frontier
       unless f.length > 0
         puts "space exhausted"

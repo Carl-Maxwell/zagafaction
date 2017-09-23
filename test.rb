@@ -19,6 +19,9 @@ Random::srand(174244244925392674317086725143365111051)
 
   collision_map = CollisionMap.new(nodes)
 
+  # thingify = Proc.new {|r| r.is_a?(Array) ? thingify.call(r) : r.class }
+  # .map {|r| r.is_a?(Array) ? r.map(&:class) : r.class }
+
   # strify = Proc.new do |thing|
   #   strify_sub = Proc.new do |t|
   #     if t.is_a?(Array) || t.is_a?(CollisionList)

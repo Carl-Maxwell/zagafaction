@@ -115,6 +115,29 @@ if $PROGRAM_NAME == __FILE__
         # text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
       end
 
+      # def l(start, stop, *extra)
+      #   line(start.x, start.y, stop.x, stop.y, *extra)
+      # end
+
+      collision_lines = g.map.collision_map.partition.get_midpoints_and_dimensions
+
+      byebug
+
+      collision_lines.each do |midpoint, dimension|
+        points = if dimension == :x
+          [Vector.new([midpoint.x, -g.space_radius]), Vector.new([midpoint.x, g.space_radius])]
+        else
+          [Vector.new([-g.space_radius, midpoint.y]), Vector.new([g.space_radius, midpoint.y])]
+        end
+
+        points.map! {|a| a*scale}
+
+        points[0] += offset
+        points[1] += offset
+
+        line(points[0][0], points[0][1], points[1][0], points[1][1])
+      end
+
       circle(offset.x, offset.y, g.space_radius*scale, stroke: "red", stroke_opacity: "1.0", fill_opacity: "0.0")
     end
   end

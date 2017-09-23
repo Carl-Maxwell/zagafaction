@@ -45,4 +45,15 @@ class MapNode
     other = if other.respond_to?(:position) then other.position else other end
     position.distance(other)
   end
+
+  # default inspect runs into recursive performance issue
+  # TODO improve these a bit
+
+  def to_s
+    self.class
+  end
+
+  def inspect
+    self.class
+  end
 end
