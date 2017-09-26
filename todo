@@ -1,5 +1,6 @@
 
 
+* the BSP code uses recursive function calls, should probably switch to loops
 * there are a lot of edge cases for the bsp that I haven't accounted for
   * like nodes overlapping the midpoint line
 * change up the color scheme for something more pleasing

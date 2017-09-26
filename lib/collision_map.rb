@@ -53,7 +53,11 @@ class CollisionMap
     dimension = if vertical then :x else :y end
 
     nodes.each do |node|
-      if node.send(dimension) < midpoint.send(dimension)
+      dist = (node.send(dimension) - midpoint.send(dimension)).abs
+      if dist < node.radius
+        a << node
+        b << node
+      elsif node.send(dimension) < midpoint.send(dimension)
         a << node
       else
         b << node

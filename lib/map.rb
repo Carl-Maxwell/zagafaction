@@ -50,12 +50,24 @@ class Map
   def collides?(position, radius)
     results = collision_map.search(position, radius)
 
+    # primary = nodes.find {|node| node.uniqid == 25}
+    # byebug if primary && primary.position == position
+
+    sixty = nodes.find {|node| node.uniqid == 60 }
+    is_primary = radius/2 > position.distance([-7.025893615469979, -4.04929212003046])
+    primary = nodes.find {|node| node.uniqid == 93 }
+
+    # byebug if sixty && is_primary
+
     # results.reject! {|other| other.position.object_id == position.object_id }
 
     # loop over results and return true if any are too near
     collision = results.any? do |node|
+      # byebug if sixty && is_primary && node == sixty
       node.distance(position) < node.radius + radius
     end
+
+    byebug if !collision && sixty && is_primary
 
     collision
   end

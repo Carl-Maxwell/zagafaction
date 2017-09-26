@@ -84,9 +84,11 @@ if $PROGRAM_NAME == __FILE__
 
       rect(0, 0, w, h, fill: "#FFEFCC", stroke: "#E8DBAE");
 
+      primary = nodes.find {|node| node.uniqid == 93 }
+      highlights = g.map.collision_map.search(primary.position, primary.radius)
+
       nodes.each do |node|
         p1 = node.position * scale + offset
-
 
         # circle(p1.x, p1.y, 1.0*node.radius*scale, stroke: "red", stroke_opacity: "0.25", fill_opacity: "0.0")
 
@@ -100,7 +102,15 @@ if $PROGRAM_NAME == __FILE__
           # line(p1.x, p1.y, p2.x, p2.y, stroke_width: radius-4, stroke: "#E9B3FF")
         end
 
-        circle(p1.x, p1.y, node.radius*scale, fill: "#9E6BB2")
+        if node == primary
+          color = "#CCDEFF"
+        elsif highlights.include? node
+          color = "#9DB26B"
+        else
+          color = "#9E6BB2"
+        end
+
+        circle(p1.x, p1.y, node.radius*scale, fill: color)
 
         g.potential_connections_rejects(node).each do |angle|
           edge_length = g.edge_length
@@ -112,7 +122,7 @@ if $PROGRAM_NAME == __FILE__
           # circle(p3.x, p3.y, 1.0*node.radius*scale, stroke: "pink", stroke_opacity: "1.0", fill_opacity: "0.0")
         end
 
-        # text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
+        text(p1.x, p1.y, :fill => "#3A2D40") { raw node.uniqid }
       end
 
       # def l(start, stop, *extra)
@@ -120,8 +130,6 @@ if $PROGRAM_NAME == __FILE__
       # end
 
       collision_lines = g.map.collision_map.partition.get_midpoints_and_dimensions
-
-      byebug
 
       collision_lines.each do |midpoint, dimension|
         points = if dimension == :x
